@@ -3,7 +3,7 @@ use crate::credentials::{AccessKeyId, AccessKeySecret};
 use crate::error::S3Error;
 use crate::Region;
 use bytes::BytesMut;
-use hmac::Hmac;
+use hmac::{Hmac, KeyInit};
 use percent_encoding::{utf8_percent_encode, AsciiSet, CONTROLS};
 use reqwest::header::HeaderMap;
 use reqwest::Url;

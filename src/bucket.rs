@@ -7,7 +7,7 @@ use crate::types::{
     HeadObjectResult, InitiateMultipartUploadResponse, ListBucketResult, PutStreamResponse,
 };
 use crate::{md5_url_encode, signature, Region, S3Response, S3StatusCode};
-use hmac::Hmac;
+use hmac::{Hmac, KeyInit};
 use http::header::{ACCEPT, AUTHORIZATION, CONTENT_LENGTH, CONTENT_TYPE, DATE, HOST, RANGE};
 use http::{HeaderMap, HeaderName, HeaderValue};
 use reqwest::Response;
@@ -1062,7 +1062,7 @@ mod tests {
                 assert!(res.status().is_success());
                 let body = res.bytes().await?;
                 // the GET range included the end -> 1 additional byte
-                assert_eq!(body.len(), end as usize + 1);
+                assert_eq!(body.len(), end + 1);
             }
 
             // test internal object copy
